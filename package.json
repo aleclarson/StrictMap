@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "js/StrictMap",
   "dependencies": {
+    "Property": "aleclarson/Property#1.1.1",
     "Type": "aleclarson/Type#1.0.0",
     "assertType": "aleclarson/assertType#1.0.0",
-    "define": "aleclarson/define#1.0.0",
     "isDev": "aleclarson/isDev#1.0.0",
     "sync": "aleclarson/sync#1.0.0"
   },

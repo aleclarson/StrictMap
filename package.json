@@ -1,7 +1,7 @@
 {
   "name": "StrictMap",
   "version": "1.0.0",
-  "main": "js/src/StrictMap",
+  "main": "js/StrictMap",
   "dependencies": {
     "Type": "aleclarson/Type#1.0.0",
     "assertType": "aleclarson/assertType#1.0.0",

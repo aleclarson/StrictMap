@@ -2,7 +2,7 @@
 require "isDev"
 
 assertType = require "assertType"
-define = require "define"
+Property = require "Property"
 Type = require "Type"
 sync = require "sync"
 
@@ -12,9 +12,9 @@ type = Type "StrictMap"
 
 type.inherits null
 
-type.optionTypes =
-  types: if isDev then Object.Maybe else Object
-  values: Object.Maybe
+type.defineOptions
+  types: if isDev then Object else Object.isRequired
+  values: Object
 
 type.initInstance ({ types, values }) ->
 
@@ -24,17 +24,15 @@ type.initInstance ({ types, values }) ->
     this[__store__] = {}
 
     # Define a computed property for each value type.
-    define this, sync.map types, (type, key) ->
-      configurable: no
-      get: -> this[__store__][key]
-      set: (newValue) ->
-        assertType newValue, type, key
-        this[__store__][key] = newValue
+    prop = Property { configurable: no }
+    sync.each types, (type, key) =>
+      prop.define this, key,
+        get: -> this[__store__][key]
+        set: (newValue) ->
+          assertType newValue, type, key
+          this[__store__][key] = newValue
 
-  if values
-    for key, value of values
-      this[key] = value
-
+  values and sync.each values, (value, key) => this[key] = value
   return
 
 module.exports = type.build()

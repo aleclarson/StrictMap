@@ -1,8 +1,7 @@
 
-require "isDev"
-
 assertType = require "assertType"
 Property = require "Property"
+isDev = require "isDev"
 Type = require "Type"
 sync = require "sync"
 

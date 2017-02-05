@@ -1,6 +1,6 @@
 {
   "name": "StrictMap",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "main": "js/StrictMap",
   "plugins": [
     "lotus-coffee"

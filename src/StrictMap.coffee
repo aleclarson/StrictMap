@@ -5,33 +5,40 @@ isDev = require "isDev"
 Type = require "Type"
 sync = require "sync"
 
-__store__ = Symbol "StrictMap.__store__"
-
 type = Type "StrictMap"
 
 type.inherits null
 
-type.defineOptions
-  types: if isDev then Object else Object.isRequired
-  values: Object
+type.defineArgs ->
+  types: [Object]
 
-type.initInstance ({ types, values }) ->
+type.defineValues (types) ->
+  _types: types
+  _map: {}
 
-  if isDev
+isDev and
+type.initInstance ->
 
-    # Define the internal value store.
-    this[__store__] = {}
+  prop = Property {configurable: no}
+  sync.each @_types, (type, key) =>
+    prop.define this, key,
+      get: -> @_map[key]
+      set: (newValue) ->
+        assertType newValue, type, key
+        @_map[key] = newValue
+        return
 
-    # Define a computed property for each value type.
-    prop = Property { configurable: no }
-    sync.each types, (type, key) =>
-      prop.define this, key,
-        get: -> this[__store__][key]
-        set: (newValue) ->
-          assertType newValue, type, key
-          this[__store__][key] = newValue
+  Object.freeze this
 
-  values and sync.each values, (value, key) => this[key] = value
-  return
+type.defineMethods
+
+  update: (newValues) ->
+    for key, newValue of newValues
+      if isDev
+        unless type = @_types[key]
+          throw Error "Unsupported key: '#{key}'"
+        assertType newValue, type, key
+      @_map[key] = newValue
+    return this
 
 module.exports = type.build()

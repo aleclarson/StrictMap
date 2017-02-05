@@ -1,0 +1,12 @@
+{
+  "name": "StrictMap",
+  "version": "1.1.0",
+  "main": "js/StrictMap",
+  "dependencies": {
+    "Property": "aleclarson/Property#1.2.3",
+    "Type": "aleclarson/Type#2.3.0",
+    "assertType": "aleclarson/assertType#2.0.1",
+    "isDev": "aleclarson/isDev#2.0.0",
+    "sync": "aleclarson/sync#1.0.2"
+  }
+}

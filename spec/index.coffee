@@ -9,9 +9,12 @@ describe "StrictMap(types)", ->
     expect -> map.a = "string"
       .toThrowError "'a' must be a Number!"
 
+describe "StrictMap::freeze()", ->
+
   # NOTE: This will only throw in strict mode.
   it "freezes itself to prevent new properties", ->
     map = StrictMap {a: Number}
+    map.freeze()
     expect -> map.b = "lolwut"
       .toThrowError "Can't add property b, object is not extensible"
 

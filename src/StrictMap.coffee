@@ -28,9 +28,10 @@ type.initInstance ->
         @_map[key] = newValue
         return
 
-  Object.freeze this
-
 type.defineMethods
+
+  freeze: ->
+    Object.freeze this
 
   update: (newValues) ->
     for key, newValue of newValues

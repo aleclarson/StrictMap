@@ -9,11 +9,12 @@ type = Type "StrictMap"
 
 type.inherits null
 
-type.defineArgs ->
-  types: [Object]
+type.defineArgs [Object]
 
 type.defineValues (types) ->
+
   _types: types
+
   _map: {}
 
 isDev and
